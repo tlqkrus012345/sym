@@ -7,35 +7,17 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class JpaMemberRepository implements MemberRepository{
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void save(Member member) {
-        em.persist(member);
-    }
+public interface JpaMemberRepository extends JpaRepository<Member,Long> {
 
-    @Override
-    public Optional<Member> findMemberByEmail(String email) {
-        Member member = em.createQuery("select m from Member m where m.email = :email",
-                Member.class)
-            .setParameter("email", email)
-            .getSingleResult();
-        return Optional.ofNullable(member);
-    }
+    Optional<Member> findByEmail(String email);
 
-    @Override
-    public Optional<Member> findMemberById(Long id) {
-        return Optional.ofNullable(em.find(Member.class, id));
-    }
+    Optional<Member> findByNickName(String nickName);
 
-    @Override
-    public List<Member> findMembers() {
-        return em.createQuery("select m from Member m", Member.class)
-            .getResultList();
-    }
+    boolean existsByEmail(String email);
+
+
 }
