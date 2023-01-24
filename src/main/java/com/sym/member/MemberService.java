@@ -17,19 +17,19 @@ public class MemberService {
 
     @Transactional
     public void registerMember(MemberRegisterRequestDto memberDto) {
-        if (existsEmail(memberDto.getEmail())) {
+        if (existsByEmail(memberDto.getEmail())) {
             throw new MemberRegisterException("이미 존재하는 이메일 입니다.");
         }
         memberRepository.save(memberDto.toEntity());
     }
 
-    public Member findMemberById(Long id) {
+    public Member findById(Long id) {
         return memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
     }
-    public Member findMemberByEmail(String email) {
+    public Member findByEmail(String email) {
         return memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
     }
-    public boolean existsEmail(String email) {
+    public boolean existsByEmail(String email) {
         return memberRepository.existsByEmail(email);
     }
 
