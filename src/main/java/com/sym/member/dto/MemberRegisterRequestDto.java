@@ -1,6 +1,9 @@
 package com.sym.member.dto;
 
 import com.sym.member.Member;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,10 +12,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class MemberRegisterRequestDto {
-
-    private Long id;
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String nickName;
+    @NotEmpty
     private String password;
 
     @Builder
