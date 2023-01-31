@@ -1,6 +1,5 @@
 package com.sym.post;
 
-import com.sym.config.CommonPostField;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

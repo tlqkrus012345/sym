@@ -1,4 +1,4 @@
-package com.sym.config;
+package com.sym.post;
 
 import lombok.Getter;
 import lombok.ToString;

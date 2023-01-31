@@ -1,7 +1,7 @@
 package com.sym.member.repository;
 
 
-import com.sym.member.Member;
+import com.sym.member.domain.Member;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
