@@ -1,17 +1,11 @@
 package com.sym.post;
 
-import com.sym.config.AuditingFields;
+import com.sym.config.CommonPostField;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -25,7 +19,7 @@ import java.util.Set;
 })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Post extends AuditingFields {
+public class Post extends CommonPostField {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)

@@ -1,6 +1,6 @@
 package com.sym.post;
 
-import com.sym.config.AuditingFields;
+import com.sym.config.CommonPostField;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.Objects;
 })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Comment extends AuditingFields {
+public class Comment extends CommonPostField {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(optional = false)

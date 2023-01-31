@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @ToString
 @EntityListeners(AuditingEntityListener.class) // AuditingEntityListener도 MappedSuperClass에 배치가 가능하다
 @MappedSuperclass
-public class AuditingFields {
+public class CommonPostField {
 
 
     @CreatedBy
