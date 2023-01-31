@@ -14,4 +14,4 @@ insert into comment (post_id, text, create_date, modify_date, writer, modifier) 
     (1, 'No', '2022-11-11 00:19:12', '2022-11-12 00:19:12', 'core', 'rest');
 
 insert into comment (post_id, text, create_date, modify_date, writer, modifier) values
-    (2, 'Java good', '2022-11-11 00:19:12', '2022-11-12 00:19:12', 'solid', 'c');
+    (2, 'Java good', '2022-11-11 00:19:12', '2022-11-12 00:19:12', 'solid', 'c')
