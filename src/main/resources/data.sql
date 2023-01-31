@@ -6,3 +6,12 @@ insert into post (title, text, hashtag, create_date, modify_date, writer, modifi
 
 insert into post (title, text, hashtag, create_date, modify_date, writer, modifier) values
     ('MySQL Title', 'Hello MySQL', 'Blue', '2022-03-04 11:39:48', '2022-04-23 00:14:44', 'MySQL', 'RDBMS');
+
+insert into comment (post_id, text, create_date, modify_date, writer, modifier) values
+    (1, 'Spring WOW', '2022-11-11 00:19:12', '2022-11-12 00:19:12', 'mvc', 'api');
+
+insert into comment (post_id, text, create_date, modify_date, writer, modifier) values
+    (1, 'No', '2022-11-11 00:19:12', '2022-11-12 00:19:12', 'core', 'rest');
+
+insert into comment (post_id, text, create_date, modify_date, writer, modifier) values
+    (2, 'Java good', '2022-11-11 00:19:12', '2022-11-12 00:19:12', 'solid', 'c')

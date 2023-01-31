@@ -28,6 +28,9 @@ spring:
         default_batch_fetch_size: 100 # 프록시 객체 같은것을 한꺼번에 size 설정한 만큼 in 쿼리로 조회한다
   h2.console.enabled: false # h2 웹 콘솔 보여주기
   sql.init.mode: always # resources/data.sql 파일 안에 값을 언제 넣을지 정한다.
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
 
 ---
 # yml 파일은 --- 기준으로 새로운 문서를 생성할 수 있다.
