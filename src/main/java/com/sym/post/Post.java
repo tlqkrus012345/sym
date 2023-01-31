@@ -1,5 +1,6 @@
 package com.sym.post;
 
+import com.sym.config.AuditingFields;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +23,9 @@ import java.util.Set;
         @Index(columnList = "createDate"),
         @Index(columnList = "writer"),
 })
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Post {
+public class Post extends AuditingFields {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
@@ -37,15 +37,6 @@ public class Post {
     @OrderBy("id")
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private final Set<Comment> comments = new LinkedHashSet<>();
-
-    @CreatedBy @Column(nullable = false, length = 100)
-    private String writer;
-    @CreatedDate @Column(nullable = false)
-    private LocalDateTime createDate;
-    @LastModifiedBy @Column(nullable = false, length = 100)
-    private String modifier;
-    @LastModifiedDate @Column(nullable = false)
-    private LocalDateTime modifyDate;
 
     private Post(String title, String text, String hashtag) {
         this.title = title;
