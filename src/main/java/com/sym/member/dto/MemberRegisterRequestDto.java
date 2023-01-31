@@ -1,13 +1,12 @@
 package com.sym.member.dto;
 
-import com.sym.member.Member;
-import javax.validation.constraints.Email;
+import com.sym.member.domain.Member;
+
 import javax.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @NoArgsConstructor

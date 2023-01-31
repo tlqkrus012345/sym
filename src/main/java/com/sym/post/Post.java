@@ -3,14 +3,8 @@ package com.sym.post;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -22,10 +16,9 @@ import java.util.Set;
         @Index(columnList = "createDate"),
         @Index(columnList = "writer"),
 })
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Post {
+public class Post extends CommonPostField {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
@@ -37,15 +30,6 @@ public class Post {
     @OrderBy("id")
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private final Set<Comment> comments = new LinkedHashSet<>();
-
-    @CreatedBy @Column(nullable = false, length = 100)
-    private String writer;
-    @CreatedDate @Column(nullable = false)
-    private LocalDateTime createDate;
-    @LastModifiedBy @Column(nullable = false, length = 100)
-    private String modifier;
-    @LastModifiedDate @Column(nullable = false)
-    private LocalDateTime modifyDate;
 
     private Post(String title, String text, String hashtag) {
         this.title = title;
