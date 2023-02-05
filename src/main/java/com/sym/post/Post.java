@@ -1,10 +1,12 @@
 package com.sym.post;
 
+import com.sym.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -21,23 +23,26 @@ import java.util.Set;
 public class Post extends CommonPostField {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(optional = false)
+    private Member member;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false, length = 2000)
     private String text;
     private String hashtag;
 
-    @OrderBy("id")
+    @OrderBy("createDate DESC")
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private final Set<Comment> comments = new LinkedHashSet<>();
 
-    private Post(String title, String text, String hashtag) {
+    private Post(Member member, String title, String text, String hashtag) {
+        this.member = member;
         this.title = title;
         this.text = text;
         this.hashtag = hashtag;
     }
-    public static Post of(String title, String text, String hashtag) {
-        return new Post(title, text, hashtag);
+    public static Post of(Member member, String title, String text, String hashtag) {
+        return new Post(member, title, text, hashtag);
     }
     public void updateHashtag(String hashtag) {
         this.hashtag = hashtag;

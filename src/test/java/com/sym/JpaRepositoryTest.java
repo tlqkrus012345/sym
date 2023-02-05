@@ -1,10 +1,11 @@
 package com.sym;
 
 import com.sym.config.JpaConfig;
+import com.sym.member.domain.Member;
+import com.sym.member.repository.MemberRepository;
 import com.sym.post.Post;
 import com.sym.post.repository.CommentRepository;
 import com.sym.post.repository.PostRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,15 @@ public class JpaRepositoryTest {
 
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
-
+    private final MemberRepository memberRepository;
     public JpaRepositoryTest(
             @Autowired PostRepository postRepository,
-            @Autowired CommentRepository commentRepository
+            @Autowired CommentRepository commentRepository,
+            @Autowired MemberRepository memberRepository
     ) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
+        this.memberRepository = memberRepository;
     }
 
     @DisplayName("select 테스트")
@@ -47,7 +50,12 @@ public class JpaRepositoryTest {
     @Test
     void crud_insert() {
         long preCount = postRepository.count();
-        Post post = Post.of("JPA Title", "Hello JPA", "Black");
+        Member member = memberRepository.save(Member.builder()
+                        .email("kyu@")
+                        .nickName("kyu")
+                        .password("123")
+                        .build());
+        Post post = Post.of(member,"JPA Title", "Hello JPA", "Black");
 
         Post savedPost = postRepository.save(post);
 
