@@ -31,4 +31,7 @@ public class MemberRegisterRequestDto {
             .password(password)
             .build();
     }
+    public MemberDto toMemberDto(MemberRegisterRequestDto dto) {
+        return new MemberDto(dto.toEntity());
+    }
 }

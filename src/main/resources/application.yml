@@ -19,6 +19,7 @@ spring:
     password: kyu12345
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 8 에 적합하다
   jpa:
+    open-in-view: false # 스프링부트 경고 로그를 끄고 양속성 컨텍스트가 트랜잭션 범위 안에서 종료되게끔 osiv 설정을 끈다
     defer-datasource-initialization: true # 초기 테스트용 데이터베이스를 생성할 수 있다. resources 파일안에 data.sql
     hibernate.ddl-auto: create # ENTITY를 자동으로 ddl문으로 만들어준다.
     show-sql: true
