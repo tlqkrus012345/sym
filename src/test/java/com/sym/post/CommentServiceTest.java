@@ -5,12 +5,10 @@ import com.sym.member.dto.MemberDto;
 import com.sym.member.dto.MemberRegisterRequestDto;
 
 import com.sym.post.dto.CommentRequestDto;
-import com.sym.post.dto.PostRequestDto;
 import com.sym.post.repository.CommentRepository;
 import com.sym.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperties;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,9 +17,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
 @DisplayName("댓글 서비스 테스트")

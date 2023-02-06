@@ -5,7 +5,6 @@ import com.sym.member.dto.MemberDto;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.post.dto.PostRequestDto;
 import com.sym.post.dto.PostWithCommentRequestDto;
-import com.sym.post.dto.PostWithCommentResponseDto;
 import com.sym.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
