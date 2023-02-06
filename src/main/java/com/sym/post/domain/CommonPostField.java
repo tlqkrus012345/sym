@@ -1,4 +1,4 @@
-package com.sym.post;
+package com.sym.post.domain;
 
 import lombok.Getter;
 import lombok.ToString;

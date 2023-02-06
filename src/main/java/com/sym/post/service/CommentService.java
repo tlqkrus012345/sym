@@ -1,4 +1,4 @@
-package com.sym.post;
+package com.sym.post.service;
 
 import com.sym.post.dto.CommentRequestDto;
 import com.sym.post.repository.CommentRepository;

@@ -1,4 +1,4 @@
-package com.sym.post;
+package com.sym.post.domain;
 
 import com.sym.member.domain.Member;
 import lombok.AccessLevel;

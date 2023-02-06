@@ -1,5 +1,6 @@
-package com.sym.post;
+package com.sym.post.service;
 
+import com.sym.post.domain.SearchType;
 import com.sym.post.dto.PostRequestDto;
 import com.sym.post.dto.PostWithCommentRequestDto;
 import com.sym.post.repository.PostRepository;

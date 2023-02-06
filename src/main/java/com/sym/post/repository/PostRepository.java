@@ -2,7 +2,7 @@ package com.sym.post.repository;
 
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
-import com.sym.post.Post;
+import com.sym.post.domain.Post;
 import com.sym.post.QPost;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

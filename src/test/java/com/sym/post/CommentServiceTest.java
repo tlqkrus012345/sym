@@ -4,9 +4,12 @@ import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberDto;
 import com.sym.member.dto.MemberRegisterRequestDto;
 
+import com.sym.post.domain.Comment;
+import com.sym.post.domain.Post;
 import com.sym.post.dto.CommentRequestDto;
 import com.sym.post.repository.CommentRepository;
 import com.sym.post.repository.PostRepository;
+import com.sym.post.service.CommentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,5 @@
 package com.sym.post.dto;
 
-import com.sym.member.dto.MemberDto;
-import com.sym.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

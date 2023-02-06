@@ -1,8 +1,8 @@
 package com.sym.post.dto;
 
 import com.sym.member.dto.MemberDto;
-import com.sym.post.Comment;
-import com.sym.post.Post;
+import com.sym.post.domain.Comment;
+import com.sym.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
