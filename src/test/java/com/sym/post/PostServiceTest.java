@@ -53,12 +53,12 @@ public class PostServiceTest {
         SearchType searchType = SearchType.TITLE;
         String searchKeyword = "title";
         Pageable pageable = Pageable.ofSize(20);
-        given(postRepository.findByTitle(searchKeyword, pageable)).willReturn(Page.empty());
+        given(postRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
 
         Page<PostRequestDto> posts = postService.searchPosts(searchType, searchKeyword, pageable);
 
         assertThat(posts).isEmpty();
-        then(postRepository).should().findByTitle(searchKeyword, pageable);
+        then(postRepository).should().findByTitleContaining(searchKeyword, pageable);
     }
     @DisplayName("게시글을 조회하면, 게시글을 반환한다")
     @Test
@@ -85,7 +85,7 @@ public class PostServiceTest {
 
         assertThat(t)
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("게시글이 없습니다 : " + postId);
+                .hasMessage("게시글이 없습니다 - postId: " + postId);
         then(postRepository).should().findById(postId);
     }
 

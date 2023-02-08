@@ -3,7 +3,7 @@ package com.sym;
 import com.sym.config.JpaConfig;
 import com.sym.member.domain.Member;
 import com.sym.member.repository.MemberRepository;
-import com.sym.post.Post;
+import com.sym.post.domain.Post;
 import com.sym.post.repository.CommentRepository;
 import com.sym.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import java.util.List;
 
