@@ -3,7 +3,7 @@ package com.sym.post.repository;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.sym.post.domain.Comment;
-import com.sym.post.QComment;
+import com.sym.post.domain.QComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
