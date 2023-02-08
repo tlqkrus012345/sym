@@ -46,6 +46,12 @@ public class Post extends CommonPostField {
     public void updateHashtag(String hashtag) {
         this.hashtag = hashtag;
     }
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+    public void updateText(String text) {
+        this.text = text;
+    }
     /**
      * Post를 컬렉션에서 사용한다면?
      * 서로 다른 엔티티가 같은 조건이 무엇인가
