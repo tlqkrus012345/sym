@@ -1,5 +1,6 @@
 package com.sym.post.dto;
 
+import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberDto;
 import com.sym.post.domain.Comment;
 import com.sym.post.domain.Post;
@@ -22,9 +23,8 @@ public class CommentRequestDto {
     private LocalDateTime modifyDate;
     private String modifier;
 
-    public static CommentRequestDto of(Long id, Long postId, MemberDto memberDto, String text, LocalDateTime createDate,
-                                       String writer, LocalDateTime modifyDate, String modifier) {
-        return new CommentRequestDto(id,postId,memberDto,text,createDate,writer,modifyDate,modifier);
+    public static CommentRequestDto of(Long postId, MemberDto memberDto, String text) {
+        return new CommentRequestDto(null,postId,memberDto,text,null,null,null,null);
     }
     public static CommentRequestDto from(Comment entity) {
         return new CommentRequestDto(
@@ -38,10 +38,10 @@ public class CommentRequestDto {
                 entity.getModifier()
         );
     }
-    public Comment toEntity(Post entity) {
+    public Comment toEntity(Post post, Member member) {
         return Comment.of(
-                entity,
-                memberDto.toEntity(),
+                post,
+                member,
                 text
         );
     }
