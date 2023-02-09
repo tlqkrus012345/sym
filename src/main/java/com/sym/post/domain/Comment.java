@@ -39,6 +39,9 @@ public class Comment extends CommonPostField {
     public static Comment of(Post post, Member member, String text) {
         return new Comment(post, member, text);
     }
+    public void updateText(String text) {
+        this.text = text;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
