@@ -138,6 +138,17 @@ public class PostServiceTest {
 
         then(postRepository).should().deleteById(postId);
     }
+    @DisplayName("게시글 수를 조회하면 게시글 수를 반환한다")
+    @Test
+    void getCountPost_postCount() {
+        long expected = 0L;
+        given(postRepository.count()).willReturn(expected);
+
+        long actual = postService.getPostCount();
+
+        assertThat(actual).isEqualTo(expected);
+        then(postRepository).should().count();
+    }
     private PostRequestDto createPostDto() {
         return createPostDto("title", "text", "#java");
     }

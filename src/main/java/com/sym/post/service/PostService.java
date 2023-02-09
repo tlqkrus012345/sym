@@ -57,4 +57,7 @@ public class PostService {
                 .map(PostWithCommentRequestDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - postId: " + postId));
     }
+    public long getPostCount() {
+        return postRepository.count();
+    }
 }
