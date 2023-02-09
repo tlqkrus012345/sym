@@ -149,6 +149,15 @@ public class PostServiceTest {
         assertThat(actual).isEqualTo(expected);
         then(postRepository).should().count();
     }
+    @DisplayName("검색어 없이 게시글을 해시태그 검색하면, 빈페이지를 반환한다")
+    @Test
+    void noParam_search_empty() {
+        Pageable pageable = Pageable.ofSize(20);
+        Page<PostRequestDto> posts = postService.searchPostHashtag(null, pageable);
+
+        assertThat(posts).isEqualTo(Page.empty(pageable));
+        then(postRepository).shouldHaveNoInteractions();
+    }
     private PostRequestDto createPostDto() {
         return createPostDto("title", "text", "#java");
     }
