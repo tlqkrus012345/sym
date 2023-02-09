@@ -4,6 +4,7 @@ import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberDto;
 import com.sym.member.dto.MemberRegisterRequestDto;
 
+import com.sym.member.repository.MemberRepository;
 import com.sym.post.domain.Comment;
 import com.sym.post.domain.Post;
 import com.sym.post.dto.CommentRequestDto;
@@ -34,6 +35,8 @@ public class CommentServiceTest {
     private CommentRepository commentRepository;
     @Mock
     private PostRepository postRepository;
+    @Mock
+    private MemberRepository memberRepository;
 
     @DisplayName("게시판 id 검색을 통해 해당하는 댓글 리스트를 반환한다.")
     @Test
@@ -55,11 +58,13 @@ public class CommentServiceTest {
     void id_create_saveComment() {
         CommentRequestDto dto = createCommentDto("comment");
         given(postRepository.getReferenceById(dto.getPostId())).willReturn(createPost());
+        given(memberRepository.getReferenceById(dto.getMemberDto().getId())).willReturn(createMember());
         given(commentRepository.save(any(Comment.class))).willReturn(null);
 
         commentService.saveComment(dto);
 
         then(postRepository).should().getReferenceById(dto.getId());
+        then(memberRepository).should().getReferenceById(dto.getMemberDto().getId());
         then(commentRepository).should().save(any(Comment.class));
     }
     @DisplayName("댓글을 수정한다")
@@ -82,9 +87,10 @@ public class CommentServiceTest {
     @Test
     void id_delete_deleteComment() {
         Long commentId = 1L;
+        String userId = "kyu";
         willDoNothing().given(commentRepository).deleteById(commentId);
 
-        commentService.deleteComment(commentId);
+        commentService.deleteComment(1L);
 
         then(commentRepository).should().deleteById(commentId);
     }
@@ -102,13 +108,8 @@ public class CommentServiceTest {
     private CommentRequestDto createCommentDto(String text) {
         return CommentRequestDto.of(
                 1L,
-                1L,
                 createMemberDto(),
-                text,
-                LocalDateTime.now(),
-                "kyu",
-                LocalDateTime.now(),
-                "kyu"
+                text
         );
     }
     private MemberDto createMemberDto() {
