@@ -34,4 +34,9 @@ public class MemberService {
         return memberRepository.existsByEmail(email);
     }
 
+    public void chargePoint(int point, Long id) {
+        Member member = findById(id);
+        member.chargePoint(point);
+        memberRepository.save(member);
+    }
 }

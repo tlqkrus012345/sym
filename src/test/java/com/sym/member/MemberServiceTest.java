@@ -101,4 +101,19 @@ class MemberServiceTest {
         assertThatThrownBy(() -> memberService.findByEmail(memberDto.getEmail()))
             .isInstanceOf(MemberNotFoundException.class);
     }
+
+    @Test
+    @DisplayName("포인트를 충전하면 회원의 포인트가 충전이된다.")
+    void point_chargePoint_updatePoint() {
+        int point = 500;
+
+        given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
+
+        memberService.chargePoint(point, member.getId());
+
+        verify(memberRepository, times(1)).findById(member.getId());
+        verify(memberRepository, times(1)).save(member);
+        assertThat(member.getPoint()).isEqualTo(point);
+
+    }
 }
