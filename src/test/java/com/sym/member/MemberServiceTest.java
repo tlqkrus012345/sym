@@ -135,6 +135,8 @@ class MemberServiceTest {
     void point_usePoint_exception() {
         int point = 500;
 
+        given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
+
         assertThatThrownBy(()-> memberService.usePoint(point, member.getId()))
                 .isInstanceOf(pointNotEnoughException.class);
     }
