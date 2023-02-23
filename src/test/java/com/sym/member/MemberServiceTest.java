@@ -16,6 +16,7 @@ import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
 import com.sym.member.exception.MemberRegisterException;
+import com.sym.member.exception.pointNotEnoughException;
 import com.sym.member.repository.MemberRepository;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
@@ -112,7 +113,6 @@ class MemberServiceTest {
         memberService.chargePoint(point, member.getId());
 
         verify(memberRepository, times(1)).findById(member.getId());
-        verify(memberRepository, times(1)).save(member);
         assertThat(member.getPoint()).isEqualTo(point);
 
     }
@@ -124,9 +124,18 @@ class MemberServiceTest {
 
         given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
         memberService.chargePoint(2000, member.getId());
-        
+
         memberService.usePoint(point, member.getId());
 
         assertThat(member.getPoint()).isEqualTo(1500);
+    }
+
+    @Test
+    @DisplayName("포인트가 부족한 상태에서 사용하면 예외가 발생한다")
+    void point_usePoint_exception() {
+        int point = 500;
+
+        assertThatThrownBy(()-> memberService.usePoint(point, member.getId()))
+                .isInstanceOf(pointNotEnoughException.class);
     }
 }

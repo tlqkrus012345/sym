@@ -38,7 +38,6 @@ public class MemberService {
     public void chargePoint(int point, Long id) {
         Member member = findById(id);
         member.chargePoint(point);
-        memberRepository.save(member);
     }
 
     public void usePoint(int point, Long id) {
