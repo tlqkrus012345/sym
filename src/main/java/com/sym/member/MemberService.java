@@ -35,11 +35,12 @@ public class MemberService {
         return memberRepository.existsByEmail(email);
     }
 
+    @Transactional
     public void chargePoint(int point, Long id) {
         Member member = findById(id);
         member.chargePoint(point);
     }
-
+    @Transactional
     public void usePoint(int point, Long id) {
         Member member = findById(id);
         if (member.getPoint() - point < 0) {
