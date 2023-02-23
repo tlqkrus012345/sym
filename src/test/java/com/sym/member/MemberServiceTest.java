@@ -16,6 +16,7 @@ import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
 import com.sym.member.exception.MemberRegisterException;
+import com.sym.member.exception.pointNotEnoughException;
 import com.sym.member.repository.MemberRepository;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
@@ -100,5 +101,43 @@ class MemberServiceTest {
 
         assertThatThrownBy(() -> memberService.findByEmail(memberDto.getEmail()))
             .isInstanceOf(MemberNotFoundException.class);
+    }
+
+    @Test
+    @DisplayName("포인트를 충전하면 회원의 포인트가 충전이된다.")
+    void point_chargePoint_updatePoint() {
+        int point = 500;
+
+        given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
+
+        memberService.chargePoint(point, member.getId());
+
+        verify(memberRepository, times(1)).findById(member.getId());
+        assertThat(member.getPoint()).isEqualTo(point);
+
+    }
+
+    @Test
+    @DisplayName("포인트를 사용하면 보유하고 있는 포인트가 줄어든다")
+    void point_usePoint_updatePoint() {
+        int point = 500;
+
+        given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
+        memberService.chargePoint(2000, member.getId());
+
+        memberService.usePoint(point, member.getId());
+
+        assertThat(member.getPoint()).isEqualTo(1500);
+    }
+
+    @Test
+    @DisplayName("포인트가 부족한 상태에서 사용하면 예외가 발생한다")
+    void point_usePoint_exception() {
+        int point = 500;
+
+        given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
+
+        assertThatThrownBy(()-> memberService.usePoint(point, member.getId()))
+                .isInstanceOf(pointNotEnoughException.class);
     }
 }

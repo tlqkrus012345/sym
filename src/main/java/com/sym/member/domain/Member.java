@@ -30,4 +30,11 @@ public class Member {
     public void setCommonMemberField(CommonMemberField commonMemberField) {
         this.commonMemberField = commonMemberField;
     }
+    public void chargePoint(int point) {
+        this.point += point;
+    }
+
+    public void usePoint(int point) {
+        this.point -= point;
+    }
 }
