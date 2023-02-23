@@ -4,6 +4,7 @@ import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
 import com.sym.member.exception.MemberRegisterException;
+import com.sym.member.exception.pointNotEnoughException;
 import com.sym.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,14 @@ public class MemberService {
         Member member = findById(id);
         member.chargePoint(point);
         memberRepository.save(member);
+    }
+
+    public void usePoint(int point, Long id) {
+        Member member = findById(id);
+        if (member.getPoint() - point < 0) {
+            throw new pointNotEnoughException("포인트가 부족합니다.");
+        } else {
+            member.usePoint(point);
+        }
     }
 }

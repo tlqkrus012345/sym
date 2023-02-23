@@ -116,4 +116,17 @@ class MemberServiceTest {
         assertThat(member.getPoint()).isEqualTo(point);
 
     }
+
+    @Test
+    @DisplayName("포인트를 사용하면 보유하고 있는 포인트가 줄어든다")
+    void point_usePoint_updatePoint() {
+        int point = 500;
+
+        given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
+        memberService.chargePoint(2000, member.getId());
+        
+        memberService.usePoint(point, member.getId());
+
+        assertThat(member.getPoint()).isEqualTo(1500);
+    }
 }

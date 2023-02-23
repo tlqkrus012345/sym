@@ -33,4 +33,8 @@ public class Member {
     public void chargePoint(int point) {
         this.point += point;
     }
+
+    public void usePoint(int point) {
+        this.point -= point;
+    }
 }
