@@ -1,10 +1,11 @@
-package com.sym.member;
+package com.sym.member.service;
 
 import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
 import com.sym.member.exception.MemberRegisterException;
-import com.sym.member.exception.pointNotEnoughException;
+import com.sym.member.exception.PasswordNotCorrectException;
+import com.sym.member.exception.PointNotEnoughException;
 import com.sym.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,7 +41,13 @@ public class MemberService {
     public boolean existsByEmail(String email) {
         return memberRepository.existsByEmail(email);
     }
-
+    public boolean existsPassword(Member member, String password) {
+        if (passwordEncoder.matches(password, member.getPassword())) {
+            return true;
+        } else {
+            throw new PasswordNotCorrectException();
+        }
+    }
     @Transactional
     public void chargePoint(int point, Long id) {
         Member member = findById(id);
@@ -50,9 +57,10 @@ public class MemberService {
     public void usePoint(int point, Long id) {
         Member member = findById(id);
         if (member.getPoint() - point < 0) {
-            throw new pointNotEnoughException("포인트가 부족합니다.");
+            throw new PointNotEnoughException("포인트가 부족합니다.");
         } else {
             member.usePoint(point);
         }
     }
+
 }
