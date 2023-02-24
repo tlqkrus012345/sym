@@ -30,6 +30,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,6 +39,8 @@ class MemberServiceTest {
     private Member member;
     @Mock
     private MemberRepository memberRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
     @InjectMocks
     private MemberService memberService;
 
@@ -59,8 +62,10 @@ class MemberServiceTest {
         doReturn(false).when(memberRepository)
                 .existsByEmail(memberDto.getEmail());
         doReturn(member).when(memberRepository).save(any(Member.class));
+        doReturn("encodedPassword").when(passwordEncoder).encode(member.getPassword());
 
         memberService.registerMember(memberDto);
+
         verify(memberRepository, times(1)).save(any(Member.class));
     }
     @Test

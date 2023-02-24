@@ -7,6 +7,7 @@ import com.sym.member.exception.MemberRegisterException;
 import com.sym.member.exception.pointNotEnoughException;
 import com.sym.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +18,17 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    private final PasswordEncoder passwordEncoder;
     @Transactional
     public void registerMember(MemberRegisterRequestDto memberDto) {
         if (existsByEmail(memberDto.getEmail())) {
             throw new MemberRegisterException("이미 존재하는 이메일 입니다.");
         }
-        memberRepository.save(memberDto.toEntity());
+        Member member = memberDto.toEntity();
+        String password = passwordEncoder.encode(member.getPassword());
+        member.encodePassword(password);
+
+        memberRepository.save(member);
     }
 
     public Member findById(Long id) {

@@ -38,4 +38,7 @@ public class Member {
     public void usePoint(int point) {
         this.point -= point;
     }
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }
