@@ -1,15 +1,18 @@
 package com.sym;
 
 import com.sym.config.SecurityConfig;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,9 +23,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AuthControllerTest {
 
     private final MockMvc mvc;
-
-    public AuthControllerTest(@Autowired MockMvc mvc) {
+    private final PasswordEncoder passwordEncoder;
+    public AuthControllerTest(@Autowired MockMvc mvc, @Autowired PasswordEncoder passwordEncoder) {
         this.mvc = mvc;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -36,4 +40,15 @@ public class AuthControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    @DisplayName("패스워드 암호화 테스트")
+    void passwordEncode() {
+        String password = "12345";
+
+        String encodedPassword = passwordEncoder.encode(password);
+
+        assertTrue(encodedPassword != null && !encodedPassword.isEmpty());
+        assertTrue(passwordEncoder.matches(password, encodedPassword));
+        assertTrue(!encodedPassword.equals(password));
+    }
 }
