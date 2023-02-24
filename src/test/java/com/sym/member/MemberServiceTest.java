@@ -1,35 +1,29 @@
 package com.sym.member;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
 import com.sym.member.exception.MemberRegisterException;
-import com.sym.member.exception.pointNotEnoughException;
+import com.sym.member.exception.PointNotEnoughException;
 import com.sym.member.repository.MemberRepository;
 import java.util.Optional;
-import org.assertj.core.api.Assertions;
+
+import com.sym.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito.BDDMyOngoingStubbing;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -143,6 +137,6 @@ class MemberServiceTest {
         given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
 
         assertThatThrownBy(()-> memberService.usePoint(point, member.getId()))
-                .isInstanceOf(pointNotEnoughException.class);
+                .isInstanceOf(PointNotEnoughException.class);
     }
 }
