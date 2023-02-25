@@ -31,6 +31,12 @@ public class Member {
     public void setCommonMemberField(CommonMemberField commonMemberField) {
         this.commonMemberField = commonMemberField;
     }
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+    public void updateNickName(String nickName) {
+        this.nickName = nickName;
+    }
     public void chargePoint(int point) {
         this.point += point;
     }
