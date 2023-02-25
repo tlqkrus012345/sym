@@ -1,7 +1,9 @@
 package com.sym.member.service;
 
+import com.sym.member.domain.CommonMemberField;
 import com.sym.member.domain.Member;
 import com.sym.member.dto.MemberRegisterRequestDto;
+import com.sym.member.dto.MemberUpdateRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
 import com.sym.member.exception.MemberRegisterException;
 import com.sym.member.exception.PasswordNotCorrectException;
@@ -32,6 +34,17 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    @Transactional
+    public void updateMember(Long id, MemberUpdateRequestDto requestDto, CommonMemberField commonMemberField) {
+        Member member = memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
+        member.setCommonMemberField(commonMemberField);
+        if (requestDto.getPassword() != null) {
+            member.updatePassword(requestDto.getPassword());
+        }
+        if (requestDto.getNickName() != null) {
+            member.updateNickName(requestDto.getNickName());
+        }
+    }
     public Member findById(Long id) {
         return memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
     }
