@@ -70,4 +70,9 @@ public class MemberController {
         loginService.logout();
         return ResponseEntity.ok("로그아웃 성공");
     }
+
+    @PostMapping("/point/{id}")
+    public void point(@PathVariable Long id, @RequestBody @Valid MemberPointRequestDto requestDto) {
+        memberService.chargePoint(requestDto.getPoint(), id);
+    }
 }
