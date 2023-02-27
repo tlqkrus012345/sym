@@ -8,26 +8,17 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
+/**
+ * @EnableRedisHttpSession : 기존 서버 세션 저장소를 사용하지 않고 Redis의 Session Stroage에 Session을 저장하게 해준다.
+ */
 @EnableRedisHttpSession
 @SpringBootApplication
-public class SymApplication implements CommandLineRunner {
+public class SymApplication{
 
-	@Autowired
-	private RedisConnectionFactory redisConnectionFactory;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SymApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		try (RedisConnection connection = redisConnectionFactory.getConnection()) {
-			String pong = connection.ping();
-			if (!"PONG".equals(pong)) {
-				throw new RuntimeException("Failed to connect to Redis");
-			}
-			System.out.println("Connected to Redis!");
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to connect to Redis", e);
-		}
-	}
+
 }
