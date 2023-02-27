@@ -16,7 +16,10 @@ spring:
   redis:
     host: localhost
     password: kyu12345
-    port: 6379
+    session:
+      port: 6379
+    cache:
+      port: 6380
   session:
     store-type: redis
     redis:
