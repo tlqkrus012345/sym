@@ -37,7 +37,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     /**
      * 스프링 세션을 Redis와 연결
      */
-    @Bean
+    @Bean({"redisConnectionFactory", "redisSessionConnectionFactory"})
     public RedisConnectionFactory redisSessionConnectionFactory() {
         LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory();
         lettuceConnectionFactory.setHostName(redisHost);
