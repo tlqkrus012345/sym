@@ -19,6 +19,7 @@ public class Member {
     private String nickName;
     private String password;
     private int point;
+    private Role role;
     @Embedded
     private CommonMemberField commonMemberField;
 
@@ -27,6 +28,9 @@ public class Member {
         this.email = email;
         this.nickName = nickName;
         this.password = password;
+    }
+    public void setRole(Role role) {
+        this.role = role;
     }
     public void setCommonMemberField(CommonMemberField commonMemberField) {
         this.commonMemberField = commonMemberField;

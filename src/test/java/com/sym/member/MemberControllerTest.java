@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sym.member.controller.MemberController;
 import com.sym.member.domain.CommonMemberField;
 import com.sym.member.domain.Member;
+import com.sym.member.domain.Role;
 import com.sym.member.dto.*;
 import com.sym.member.repository.MemberRepository;
 import com.sym.member.service.LoginService;
@@ -62,7 +63,7 @@ class MemberControllerTest {
         MemberRegisterResponseDto responseDto = MemberRegisterResponseDto.from(requestDto);
 
         when(memberService.existsByEmail(requestDto.getEmail())).thenReturn(false);
-        doNothing().when(memberService).registerMember(any(MemberRegisterRequestDto.class));
+        doNothing().when(memberService).registerMember(any(MemberRegisterRequestDto.class), Role.Member);
 
 
         mockMvc.perform(post("/api/members")

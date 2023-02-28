@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.sym.member.domain.Member;
+import com.sym.member.domain.Role;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
 import com.sym.member.exception.MemberRegisterException;
@@ -57,8 +58,9 @@ class MemberServiceTest {
                 .existsByEmail(memberDto.getEmail());
         doReturn(member).when(memberRepository).save(any(Member.class));
         doReturn("encodedPassword").when(passwordEncoder).encode(member.getPassword());
+        Role role = Role.Member;
 
-        memberService.registerMember(memberDto);
+        memberService.registerMember(memberDto,role);
 
         verify(memberRepository, times(1)).save(any(Member.class));
     }
@@ -67,8 +69,9 @@ class MemberServiceTest {
     void register_x() {
         doReturn(true).when(memberRepository)
             .existsByEmail(memberDto.getEmail());
+        Role role = Role.Member;
 
-        assertThatThrownBy(()-> memberService.registerMember(memberDto))
+        assertThatThrownBy(()-> memberService.registerMember(memberDto,role))
             .isInstanceOf(MemberRegisterException.class);
     }
     @Test
