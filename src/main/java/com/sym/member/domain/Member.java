@@ -20,7 +20,7 @@ public class Member {
     private String nickName;
     private String password;
     private int point;
-    private Long doctorId;
+    private Long counselorId;
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -56,7 +56,7 @@ public class Member {
     public void encodePassword(String password) {
         this.password = password;
     }
-    public void setDoctorId(Long doctorId){
-        this.doctorId = doctorId;
+    public void setCounselorId(Long counselorId){
+        this.counselorId = counselorId;
     }
 }

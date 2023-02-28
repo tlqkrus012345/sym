@@ -18,10 +18,8 @@ class SympathyServiceTest {
 
     @Mock
     private SympathyRepository sympathyRepository;
-
     @InjectMocks
     private SympathyService sympathyService;
-
     @Test
     void testSave() {
         SurveyRequestDto requestDto = new SurveyRequestDto();
