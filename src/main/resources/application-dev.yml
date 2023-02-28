@@ -1,0 +1,20 @@
+spring:
+  redis:
+    host: localhost
+    password: kyu12345
+    session:
+      port: 6379
+    cache:
+      port: 6380
+  session:
+    store-type: redis
+    redis:
+      namespace: session
+  datasource:
+    url: jdbc:mysql://localhost:3306/symproject
+    username: tlqkrus012345
+    password: kyu12345
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
