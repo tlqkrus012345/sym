@@ -1,6 +1,7 @@
 package com.sym.member.controller;
 
 import com.sym.member.domain.CommonMemberField;
+import com.sym.member.domain.Role;
 import com.sym.member.dto.*;
 import com.sym.member.repository.MemberRepository;
 import com.sym.member.service.LoginService;
@@ -26,11 +27,12 @@ public class MemberController {
     private final LoginService loginService;
     @PostMapping
     public ResponseEntity<?> register(@RequestBody @Valid MemberRegisterRequestDto requestDto) {
+        Role role = Role.Member;
         boolean existEmail = memberService.existsByEmail(requestDto.getEmail());
         if (existEmail) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("중복된 이메일");
         }
-        memberService.registerMember(requestDto);
+        memberService.registerMember(requestDto, role);
         MemberRegisterResponseDto responseDto = MemberRegisterResponseDto.from(requestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
