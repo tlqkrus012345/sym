@@ -2,6 +2,7 @@ package com.sym.member.domain;
 
 import javax.persistence.*;
 
+import com.sym.sympathy.domain.PsychologicalSurvey;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,12 @@ public class Member {
     private String nickName;
     private String password;
     private int point;
+    private Long doctorId;
+    @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "survey_id")
+    private PsychologicalSurvey survey;
     @Embedded
     private CommonMemberField commonMemberField;
 
@@ -44,11 +50,13 @@ public class Member {
     public void chargePoint(int point) {
         this.point += point;
     }
-
     public void usePoint(int point) {
         this.point -= point;
     }
     public void encodePassword(String password) {
         this.password = password;
+    }
+    public void setDoctorId(Long doctorId){
+        this.doctorId = doctorId;
     }
 }
