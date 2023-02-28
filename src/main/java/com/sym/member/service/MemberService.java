@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -52,6 +54,9 @@ public class MemberService {
     }
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
+    }
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
     }
     public boolean existsByEmail(String email) {
         return memberRepository.existsByEmail(email);
