@@ -5,7 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 src/test/resources/*.yml
-
+/src/main/resources/application-local.yml
 ### Querydsl ###
 /src/main/generated
 
