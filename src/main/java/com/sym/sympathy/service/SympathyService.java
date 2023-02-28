@@ -1,14 +1,20 @@
 package com.sym.sympathy.service;
 
 import com.sym.member.domain.Member;
+import com.sym.member.domain.Role;
 import com.sym.member.service.MemberService;
 import com.sym.sympathy.domain.PsychologicalSurvey;
 import com.sym.sympathy.dto.SurveyRequestDto;
+import com.sym.sympathy.exception.NotEnoughCounselorException;
 import com.sym.sympathy.repository.SympathyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -24,7 +30,11 @@ public class SympathyService {
         String result = diagnose(requestDto);
         String surveyResult = finalDiagnose(result);
 
-        sympathyRepository.save(toEntity(result, surveyResult, requestDto.getMemberDto().toEntity()));
+        Member member = requestDto.getMemberDto().toEntity();
+        Long counselorId = matchCounselor(surveyResult, member);
+        member.setCounselorId(counselorId);
+
+        sympathyRepository.save(toEntity(result, surveyResult, member));
     }
     public String diagnose(SurveyRequestDto requestDto) {
         int depression = 0;
@@ -68,13 +78,39 @@ public class SympathyService {
             }
         }
 
-        if (B >= 2) return "Need Doctor";
+        if (B >= 2) return "Need Counselor";
         if (N == 2 && B == 1) return "Need Serious Talk";
         if (N == 2 && G == 1) return "Need Talk";
         if (G == 2 && N == 1) return "Need Rest";
         if (G == 2 && B == 1) return "Need Deep Rest";
         if (N ==1 && B == 1 && G == 1) return "Need Talk and Rest";
         else return "Happy";
+    }
+    public Long matchCounselor(String result, Member member) {
+        String location = member.getCommonMemberField().getAddress().getCity();
+
+        if (result.contains("Counselor") || result.contains("Serious")) {
+            List<Member> counselorList = getCounselor();
+            return searchLocation(location, counselorList);
+        } else {
+            return null;
+        }
+    }
+    public List<Member> getCounselor() {
+        List<Member> counselor = memberService.findMembers().stream()
+                .filter(m -> m.getRole().equals(Role.Counselor))
+                .collect(Collectors.toList());
+        return counselor;
+    }
+    public Long searchLocation(String location, List<Member> counselorList) {
+        Optional<Member> counselor = counselorList.stream()
+                .filter(m -> m.getCommonMemberField().getAddress().getCity().equals(location))
+                .findFirst();
+        if (counselor.isPresent()) {
+            return counselor.get().getId();
+        } else {
+            throw new NotEnoughCounselorException("죄송합니다");
+        }
     }
     public PsychologicalSurvey toEntity(String result, String surveyResult, Member member) {
         return PsychologicalSurvey.of(
@@ -85,4 +121,5 @@ public class SympathyService {
                 result.substring(2)
         );
     }
+
 }
