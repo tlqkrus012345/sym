@@ -2,6 +2,7 @@ package com.sym.member.service;
 
 import com.sym.member.domain.CommonMemberField;
 import com.sym.member.domain.Member;
+import com.sym.member.domain.Role;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.dto.MemberUpdateRequestDto;
 import com.sym.member.exception.MemberNotFoundException;
@@ -23,11 +24,12 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     @Transactional
-    public void registerMember(MemberRegisterRequestDto memberDto) {
+    public void registerMember(MemberRegisterRequestDto memberDto, Role role) {
         if (existsByEmail(memberDto.getEmail())) {
             throw new MemberRegisterException("이미 존재하는 이메일 입니다.");
         }
         Member member = memberDto.toEntity();
+        member.setRole(role);
         String password = passwordEncoder.encode(member.getPassword());
         member.encodePassword(password);
 
