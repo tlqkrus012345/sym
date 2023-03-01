@@ -16,3 +16,7 @@
 ### 프로젝트 Use Case
 ---
 https://github.com/tlqkrus012345/sym/wiki/Use-Case
+
+### 프로젝트 DB ERD
+---
+https://github.com/tlqkrus012345/sym/blob/develop/document/sym-project-erd.svg
