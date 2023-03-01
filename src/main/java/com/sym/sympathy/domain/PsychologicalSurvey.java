@@ -3,7 +3,6 @@ package com.sym.sympathy.domain;
 import com.sym.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -25,6 +24,7 @@ public class PsychologicalSurvey {
     private String depression;
     private String angerControlDisorder;
     private String insanity;
+
     @CreatedDate
     private LocalDateTime surveyDateTime;
     @LastModifiedDate
