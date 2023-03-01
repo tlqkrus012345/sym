@@ -4,6 +4,8 @@ import com.sym.member.domain.Role;
 import com.sym.member.dto.MemberRegisterRequestDto;
 import com.sym.member.dto.MemberRegisterResponseDto;
 import com.sym.member.service.MemberService;
+import com.sym.sympathy.dto.SurveyRequestDto;
+import com.sym.sympathy.service.SympathyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/sympathy")
 public class SympathyController {
     private final MemberService memberService;
+    private final SympathyService sympathyService;
     @PostMapping
     public ResponseEntity<?> register(@RequestBody @Valid MemberRegisterRequestDto requestDto) {
         Role role = Role.Counselor;
@@ -31,5 +34,10 @@ public class SympathyController {
         MemberRegisterResponseDto responseDto = MemberRegisterResponseDto.from(requestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    }
+    @PostMapping("/survey")
+    public ResponseEntity<?> survey(@RequestBody @Valid SurveyRequestDto requestDto) {
+        sympathyService.save(requestDto);
+        return ResponseEntity.ok("고생하셨습니다.");
     }
 }
